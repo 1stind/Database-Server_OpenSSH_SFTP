@@ -1,16 +1,13 @@
 # Create Database Server SFTP and Mail Server
 ## 22.83.0859 Indra Bagas Pratama
 #
-#
 ## Deskripsi
 - Database server with Mysql PhpMyadmin
-- Secure File Transfer Protocol With OpenSSH
-- Secure Shell With OpenSSH
+- Secure Shell & Secure File Transfer Protocol With OpenSSH
 - DHCP Server
 - Mail Server
 
 ## Requirements
-
 - Ubuntu Server 22.04
 - Storange minimal 40 GB
 - RAM 4 GB ++
@@ -42,7 +39,7 @@ mysql_secure_installation
 
 * current password root awal belum ditentukan, maka dari itu pilih n
 
-* untuk membuat password root, command y dan masukkan password
+* untuk membuat password root y dan masukkan password
 
 * remove anonymous users? y
 
@@ -90,32 +87,38 @@ a2enconf phpmyadmin.conf
 systemctl restart apache2
 ```
 Step 6: Testing
-ganti ip 192.168.0.0 sesuai ip pada ubuntu yang digunakan
+
 ```sh
 http:192.168.0.0/phpmyadmin
 ```
-Dillinger is very easy to install and deploy in a Docker container.
+* ganti ip 192.168.0.0 sesuai ip pada ubuntu yang digunakan
 
-By default, the Docker will expose port 8080, so change this within the
-Dockerfile if necessary. When ready, simply use the Dockerfile to
-build the image.
-
+### Secure Shell & Secure File Transfer Protocol With OpenSSH
+Step 1: Install openssh-server
 ```sh
-cd dillinger
-docker build -t <youruser>/dillinger:${package.json.version} .
+apt install openssh-server
 ```
-
-This will create the dillinger image and pull in the necessary dependencies.
-Be sure to swap out `${package.json.version}` with the actual
-version of Dillinger.
-
-Once done, run the Docker image and map the port to whatever you wish on
-your host. In this example, we simply map port 8000 of the host to
-port 8080 of the Docker (or whatever port was exposed in the Dockerfile):
-
+Step 2: Konfigurasi openssh-server
 ```sh
-docker run -d -p 8000:8080 --restart=always --cap-add=SYS_ADMIN --name=dillinger <youruser>/dillinger:${package.json.version}
+nano /etc/ssh/sshd.conf
 ```
+* 
+*
+*
+
+Step 3: Testing remote SSH
+```sh
+ssh root@192.168.0.0
+```
+Step 4: Testing SFTP
+```sh
+sftp://192.168.0.0:22
+```
+* 
+*
+
+### Configure DHCP Server
+### Configure Mail Server- 
 
 > Note: `--capt-add=SYS-ADMIN` is required for PDF rendering.
 
@@ -127,8 +130,6 @@ your preferred browser.
 ```
 
 ## License
-
-MIT
 
 **Free Software, Hell Yeah!**
 
