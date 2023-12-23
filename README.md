@@ -42,7 +42,7 @@ mysql_secure_installation
 
 * current password root awal belum ditentukan, maka dari itu pilih n
 
-* untuk membuat password root y dan masukkan password
+* untuk membuat password root, command y dan masukkan password
 
 * remove anonymous users? y
 
