@@ -16,20 +16,26 @@
 - RAM 4 GB ++
 
 ## Installation
-### Configure Database Server 
+### Configure Apache
 Step 1: Update Repo
 
 ```sh
 apt update && upgrade -y
 ```
-
-Step 2: Install Mysql Server
+Step 2: Install Apache
 
 ```sh
-apt install mariadb-server -y
+apt-get install apache2 -y
 ```
-Step 3: Konfigurasi Mysql Server
-
+```sh
+systemctl status apache2
+```
+### Configure Database Server 
+Step 1: Install Mysql Server
+```sh
+apt install mysql-server -y
+```
+Step 2: Konfigurasi Mysql Server
 ```sh
 mysql_secure_installation
 ```
@@ -57,14 +63,37 @@ create database test;
 ```sh
 show database;
 ```
-Generating pre-built zip archives for distribution:
+```sh
+exit;
+```
+Step 4: Install Php
+```sh
+apt-get install php php-mysql libapache2-mod-php php-cli php-cgi php-gd mysql-server mysql-client zip -y
+```
+Step 5: Install PhpMyadmin
 
 ```sh
-gulp build dist --prod
+apt install phpmyadmin -y
 ```
+* configure phpmyadmin pada pilihan apache2 dan lighttpd, sesuaikan pada service web server yang digunakan
+* configure database with dbconfig-common. y
 
-## Docker
+Step 5: hak akses direktori phpmyadmin
 
+```sh
+ ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf
+```
+```sh
+a2enconf phpmyadmin.conf
+```
+```sh
+systemctl restart apache2
+```
+Step 6: Testing
+ganti ip 192.168.0.0 sesuai ip pada ubuntu yang digunakan
+```sh
+http:192.168.0.0/phpmyadmin
+```
 Dillinger is very easy to install and deploy in a Docker container.
 
 By default, the Docker will expose port 8080, so change this within the
