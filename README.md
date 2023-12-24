@@ -118,7 +118,64 @@ sftp://192.168.0.0:22
 *
 
 ### Configure DHCP Server
-### Configure Mail Server- 
+Step 1: Install ISC DHCP Server
+```sh
+apt install isc-dhcp-server
+```
+Step 2: Konfigurasi 
+* tentukan dulu network interfaces dan network address yang nantinya akan dibuatkan dhcp server
+```sh
+nano /etc/default/isc-dhcp-server
+```
+* 
+
+```sh
+nano /etc/dhcp/dhcpd.conf
+```
+Step 3: Testing
+```sh
+systemctl restart isc-dhcp-server
+```
+* 
+
+
+### Configure Mail Server Roundcube Webmail
+Step 1: Download roundcube
+```sh
+wget https://github.com/roundcube/roundcubemail/releases/download/1.5.2/roundcubemail-1.5.2-complete.tar.gz
+```
+Step 2: Install
+```sh
+apt install bind9 dnsutils postfix dovecot-imapd apache2 php mariadb-server openssl composer php-{net-smtp,mysql,gd,xml,mbstring,intl,zip,json,pear,bz2,gmp,imap,imagick,auth-sasl,mail-mime,net-ldap3,net-sieve,curl} libapache2-mod-php curl -y
+```
+* configure console Postfix akan muncul, pertama Kita pilih Internet Site
+* isikan domain mail name
+
+Step 3: Konfigurasi DNS
+* copy db.local dan db.127 untuk membuat zone forward & reverse
+
+```sh
+cp /etc/bind/db.local db.id
+```
+```sh
+cp /etc/bind/db.127 db.192
+```
+Step 3: Testing
+```sh
+systemctl restart isc-dhcp-server
+```
+Step 3: Testing
+```sh
+systemctl restart isc-dhcp-server
+```
+Step 3: Testing
+```sh
+systemctl restart isc-dhcp-server
+```
+Step 3: Testing
+```sh
+systemctl restart isc-dhcp-server
+```
 
 > Note: `--capt-add=SYS-ADMIN` is required for PDF rendering.
 
